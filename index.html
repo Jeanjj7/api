@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1 API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js "></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <h1>Aula 1 API</h1>
+    <button id="bntCarrega">Carrega...</button>
+    <div id="conteudo"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#bntCarrega").click(function () {
+                // $("#conteudo").html("Carregando...");
+
+                $.ajax({
+                    url: "https://fabiooliveira.cloud/aula_api_03/",
+                    method: "GET",
+                    data: { api_key: "eaf6c5fe009a07fb3ec3d7f33adcb932" },
+                    dataType: "json",
+                    success: function (resposta) {
+                        resposta.forEach(item => {
+                            var cthtml = "";
+                            cthtml += "<div id='cartoes'>";
+                            cthtml += `<img src='${item.imagem}'width='70'>`;
+                            cthtml += "<br>";
+                            cthtml += `<i>${item.id_produto}</i>`;
+                            cthtml += "<br>";
+                            cthtml += `<h1>R$ ${item.preco}</h1>`;
+                            cthtml += `<i> ${item.nome_produto}</i>`;
+                            cthtml += "<br>";
+                            cthtml += `Disponiveis: ${item.estoque}`;
+                            cthtml += "<br>";
+                            cthtml += `Categoria: ${item.categoria}`;
+                            cthtml += "<br>";
+                            cthtml += "</div>";
+                            $("#conteudo").append(cthtml);
+                        });
+
+
+                        // resposta.forEach(item => {
+                        //     $("#conteudo").append("<div id='cartoes'>");
+                        //     $("#conteudo").append(`<img src='${item.imagem}'height='200'>`);
+                        //     $("#conteudo").append("<br>");
+                        //     $("#conteudo").append(`<i>${item.id_produto}</i>`);
+                        //     $("#conteudo").append("<br>");
+                        //     $("#conteudo").append(`<h1>R$ ${item.preco}</h1>`);
+                        //     $("#conteudo").append(item.nome_produto);
+                        //     $("#conteudo").append("<br>");
+                        //     $("#conteudo").append(`Disponiveis: ${item.estoque}`);
+                        //     $("#conteudo").append("<br>");
+                        //     $("#conteudo").append(`Categoria: ${item.categoria}`);
+                        //     $("#conteudo").append("<br><br>");
+                        //     $("#conteudo").append("</div>");
+                        // });
+
+                    },
+
+                    error: function () {
+                        alert("ao carregar esta dabdo um erro na API");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
